@@ -323,8 +323,8 @@ msgid "Hidden"
 msgstr ""
 
 #: src/Admin/Settings_Page.php:362
-msgid "The position of the 'Show [x] entries' dropdown list."
-msgstr ""
+# msgid "The position of the 'Show [x] entries' dropdown list."
+# msgstr ""
 
 #: src/Admin/Settings_Page.php:366
 msgid "Search box"
