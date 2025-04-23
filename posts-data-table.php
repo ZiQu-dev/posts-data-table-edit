@@ -11,11 +11,14 @@
  * Plugin Name:     Posts Table with Search & Sort
  * Plugin URI:      https://github.com/ZiQu-dev/posts-data-table-edit
  * Description:     List your posts in an instantly searchable & sortable table.
- * Version:         1.4.5
+ * Version:         1.4.10
  * Author:          Barn2 Plugins & Mateusz Korniak
  * Author URI:      https://barn2.com
  * Text Domain:     posts-data-table
  * Domain Path:     /languages
+ *
+ * Requires at least:     6.1
+ * Requires PHP:          7.4
  *
  * Copyright:       Barn2 Media Ltd
  * License:         GNU General Public License v3.0
@@ -29,7 +32,7 @@ if ( ! defined( '\ABSPATH' ) ) {
 	exit;
 }
 
-const PLUGIN_VERSION = '1.4.5';
+const PLUGIN_VERSION = '1.4.10';
 const PLUGIN_FILE    = __FILE__;
 
 // Autoloader.

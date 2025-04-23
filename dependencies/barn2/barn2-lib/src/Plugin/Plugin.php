@@ -2,6 +2,7 @@
 
 namespace Barn2\Plugin\Posts_Table_Search_Sort\Dependencies\Lib\Plugin;
 
+use Barn2\Plugin\Posts_Table_Search_Sort\Dependencies\Lib\Plugin\Admin\Notice_Provider;
 /**
  * Basic interface implemented by all Barn2 plugins.
  *
@@ -10,6 +11,7 @@ namespace Barn2\Plugin\Posts_Table_Search_Sort\Dependencies\Lib\Plugin;
  * @license   GPL-3.0
  * @copyright Barn2 Media Ltd
  * @version   1.2
+ * @internal
  */
 interface Plugin
 {
@@ -62,17 +64,17 @@ interface Plugin
      */
     public function get_dir_url();
     /**
+     * Get the WooCommerce features to declare compatibility.
+     *
+     * @return boolean[] An array of WooCommerce features to declare compatibility with.
+     */
+    public function get_woocommerce_features();
+    /**
      * Is this plugin a WooCommerce extension?
      *
      * @return boolean true if it's a WooCommerce extension.
      */
     public function is_woocommerce();
-    /**
-     * Is this plugin compatible with WooCommerce HPOS?
-     *
-     * @return boolean true if it's compatible with WooCommerce HPOS.
-     */
-    public function is_hpos_compatible();
     /**
      * Is this plugin an Easy Digital Downloads extension?
      *
@@ -97,4 +99,22 @@ interface Plugin
      * @return string (URL)
      */
     public function get_support_url();
+    /**
+     * Get the plugin data.
+     *
+     * @return Plugin_Data
+     */
+    public function plugin_data();
+    /**
+     * Get the plugin notice provider.
+     *
+     * @return Notice_Provider
+     */
+    public function notices();
+    /**
+     * Get the plugin requirements.
+     *
+     * @return Requirements
+     */
+    public function requirements();
 }

@@ -4,6 +4,7 @@ namespace Barn2\Plugin\Posts_Table_Search_Sort\Dependencies\Lib\Plugin\License\A
 
 use Barn2\Plugin\Posts_Table_Search_Sort\Dependencies\Lib\Plugin\Licensed_Plugin;
 use Barn2\Plugin\Posts_Table_Search_Sort\Dependencies\Lib\Registerable;
+use Barn2\Plugin\Posts_Table_Search_Sort\Dependencies\Lib\Service\Core_Service;
 use Barn2\Plugin\Posts_Table_Search_Sort\Dependencies\Lib\Util;
 /**
  * Handles the display of admin notices for the plugin license (e.g. license expired).
@@ -13,15 +14,16 @@ use Barn2\Plugin\Posts_Table_Search_Sort\Dependencies\Lib\Util;
  * @license   GPL-3.0
  * @copyright Barn2 Media Ltd
  * @version   1.2
+ * @internal
  */
-class License_Notices implements Registerable
+class License_Notices implements Registerable, Core_Service
 {
     const FIRST_ACTIVATION = 'first_activation';
     const EXPIRED = 'expired';
     const DISABLED = 'disabled';
     const SITE_MOVED = 'site_moved';
     /**
-     * @var Licensable_Plugin The plugin to handle notices for.
+     * @var Licensed_Plugin The plugin to handle notices for.
      */
     private $plugin;
     public function __construct(Licensed_Plugin $plugin)
@@ -31,6 +33,7 @@ class License_Notices implements Registerable
     public function register()
     {
         \add_action('admin_init', [$this, 'add_notices'], 50);
+        \add_action('admin_enqueue_scripts', [$this, 'register_scripts']);
         \add_action('barn2_license_activated_' . $this->plugin->get_id(), [$this, 'cleanup_transients']);
         \add_action('wp_ajax_barn2_dismiss_notice', [$this, 'ajax_dismiss_notice']);
     }
@@ -75,7 +78,7 @@ class License_Notices implements Registerable
         echo \esc_attr(self::FIRST_ACTIVATION);
         ?>">
 			<p>
-			<?php 
+				<?php 
         // phpcs:disable WordPress.Security.EscapeOutput
         \printf(
             /* translators: 1: the plugin name, 2: settings link start, 3: settings link end. */
@@ -86,7 +89,7 @@ class License_Notices implements Registerable
         );
         // phpcs:enable WordPress.Security.EscapeOutput
         ?>
-				</p>
+			</p>
 		</div>
 		<?php 
     }
@@ -100,7 +103,7 @@ class License_Notices implements Registerable
         echo \esc_attr(self::EXPIRED);
         ?>">
 			<p>
-			<?php 
+				<?php 
         // phpcs:disable WordPress.Security.EscapeOutput
         \printf(
             /* translators: 1: the plugin name, 2: renewal link start, 3: renewal link end. */
@@ -111,7 +114,7 @@ class License_Notices implements Registerable
         );
         // phpcs:enable WordPress.Security.EscapeOutput
         ?>
-				</p>
+			</p>
 		</div>
 		<?php 
     }
@@ -125,7 +128,7 @@ class License_Notices implements Registerable
         echo \esc_attr(self::DISABLED);
         ?>">
 			<p>
-			<?php 
+				<?php 
         // phpcs:disable WordPress.Security.EscapeOutput
         \printf(
             /* translators: 1: the plugin name, 2: renewal link start, 3: renewal link end. */
@@ -136,7 +139,7 @@ class License_Notices implements Registerable
         );
         // phpcs:enable WordPress.Security.EscapeOutput
         ?>
-				</p>
+			</p>
 		</div>
 		<?php 
     }
@@ -153,7 +156,7 @@ class License_Notices implements Registerable
         echo \esc_attr(self::SITE_MOVED);
         ?>">
 			<p>
-			<?php 
+				<?php 
         // phpcs:disable WordPress.Security.EscapeOutput
         \printf(
             /* translators: 1: the plugin name, 2: settings link start, 3: settings link end. */
@@ -164,7 +167,7 @@ class License_Notices implements Registerable
         );
         // phpcs:enable WordPress.Security.EscapeOutput
         ?>
-				</p>
+			</p>
 		</div>
 		<?php 
     }
@@ -175,11 +178,14 @@ class License_Notices implements Registerable
         \delete_transient($this->get_notice_dismissed_transient_name(self::DISABLED));
         \delete_transient($this->get_notice_dismissed_transient_name(self::SITE_MOVED));
     }
-    public function load_scripts()
+    public function register_scripts()
     {
         if (!\wp_script_is('barn2-notices', 'registered')) {
             \wp_register_script('barn2-notices', \plugins_url('dependencies/barn2/barn2-lib/build/js/admin/barn2-notices.js', $this->plugin->get_file()), ['jquery'], $this->plugin->get_version(), \true);
         }
+    }
+    public function load_scripts()
+    {
         \wp_enqueue_script('barn2-notices');
     }
     public function ajax_dismiss_notice()
@@ -188,12 +194,11 @@ class License_Notices implements Registerable
         $notice_type = \filter_input(\INPUT_POST, 'type', \FILTER_SANITIZE_SPECIAL_CHARS);
         // Check data is valid.
         if (!$item_id || !\in_array($notice_type, [self::FIRST_ACTIVATION, self::EXPIRED, self::DISABLED, self::SITE_MOVED], \true)) {
-            \wp_die();
+            return;
         }
         if ($item_id === $this->plugin->get_id()) {
             $this->dismiss_notice($notice_type);
         }
-        \wp_die();
     }
     private function dismiss_notice($notice_type)
     {

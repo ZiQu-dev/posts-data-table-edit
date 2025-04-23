@@ -11,13 +11,14 @@ namespace Barn2\Plugin\Posts_Table_Search_Sort\Dependencies\Setup_Wizard\Steps;
 use Barn2\Plugin\Posts_Table_Search_Sort\Dependencies\Setup_Wizard\Step;
 /**
  * Handles the cross selling step of the wizard.
+ * @internal
  */
 class Cross_Selling extends Step
 {
     /**
      * Initialize the step.
      */
-    public function __construct()
+    public function init()
     {
         $this->set_id('more');
         $this->set_name(esc_html__('More', 'barn2-setup-wizard'));

@@ -2,4 +2,4 @@
 
 namespace Barn2\Plugin\Posts_Table_Search_Sort\Dependencies;
 
-return array('dependencies' => array(), 'version' => 'ff3be4cde440600f2fa7');
+return array('dependencies' => array(), 'version' => '72a6c2587a65c05051b9');

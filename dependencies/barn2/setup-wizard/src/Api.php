@@ -14,6 +14,7 @@ use JsonSerializable;
 /**
  * Class that handles registration of the rest api route
  * for the given plugin.
+ * @internal
  */
 class Api implements JsonSerializable
 {
@@ -150,6 +151,7 @@ class Api implements JsonSerializable
         if (empty($step) || !$step instanceof Step) {
             return self::send_error_response(['message' => __('Could not find the appropriate step.', 'barn2-setup-wizard')]);
         }
+        $step->set_request($request);
         $values = Util::clean($request->get_param('values'));
         return $step->submit($values);
     }

@@ -10,6 +10,7 @@ namespace Barn2\Plugin\Posts_Table_Search_Sort\Dependencies\Setup_Wizard;
 
 /**
  * Determine if the setup wizard should be displayed after plugin's activation.
+ * @internal
  */
 class Starter
 {
@@ -78,7 +79,7 @@ class Starter
      */
     public function redirect()
     {
-        $url = \add_query_arg(['page' => $this->slug], \admin_url());
+        $url = \add_query_arg(['page' => $this->slug], \admin_url('admin.php'));
         \wp_safe_redirect($url);
         exit;
     }

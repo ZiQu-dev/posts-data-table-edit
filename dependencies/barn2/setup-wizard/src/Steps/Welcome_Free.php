@@ -12,13 +12,14 @@ use Barn2\Plugin\Posts_Table_Search_Sort\Dependencies\Setup_Wizard\Api;
 use Barn2\Plugin\Posts_Table_Search_Sort\Dependencies\Setup_Wizard\Step;
 /**
  * Handles the welcome step of the wizard for free plugins.
+ * @internal
  */
 class Welcome_Free extends Step
 {
     /**
      * Initialize the step.
      */
-    public function __construct()
+    public function init()
     {
         $this->set_id('welcome_free');
         $this->set_name(esc_html__('Welcome', 'barn2-setup-wizard'));

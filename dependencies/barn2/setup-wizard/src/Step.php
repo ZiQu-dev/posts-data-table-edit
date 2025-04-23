@@ -11,6 +11,7 @@ namespace Barn2\Plugin\Posts_Table_Search_Sort\Dependencies\Setup_Wizard;
 use Barn2\Plugin\Posts_Table_Search_Sort\Dependencies\Setup_Wizard\Interfaces\Pluggable;
 /**
  * Handles configuration of a setup wizard step.
+ * @internal
  */
 abstract class Step implements Pluggable
 {
@@ -62,6 +63,48 @@ abstract class Step implements Pluggable
      * @var boolean
      */
     private $hidden = \false;
+    /**
+     * The request object.
+     * This is used to get the submitted values.
+     *
+     * @var \WP_REST_Request
+     */
+    private $request;
+    /**
+     * Step constructor.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        \add_action('after_setup_theme', [$this, 'init']);
+    }
+    /**
+     * Initialize the step.
+     *
+     * @return void
+     */
+    public abstract function init();
+    /**
+     * Set the request object.
+     *
+     * @param \WP_REST_Request $request The request object.
+     * @return Step
+     */
+    public function set_request(\WP_REST_Request $request)
+    {
+        $this->request = $request;
+        return $this;
+    }
+    /**
+     * Get the request object.
+     *
+     * @return \WP_REST_Request
+     */
+    public function get_request()
+    {
+        return $this->request;
+    }
     /**
      * Attach a plugin to the step.
      *

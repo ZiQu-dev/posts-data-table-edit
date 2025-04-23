@@ -7,7 +7,7 @@ use Barn2\Plugin\Posts_Table_Search_Sort\Dependencies\Setup_Wizard\Steps\Welcome
 /**
  * Layout Settings Step.
  *
- * @package   Barn2/posts-data-table
+ * @package   Barn2\posts-data-table
  * @author    Barn2 Plugins <info@barn2.com>
  * @license   GPL-3.0
  * @copyright Barn2 Media Ltd
@@ -17,7 +17,7 @@ class Welcome extends Welcome_Free {
 	/**
 	 * {@inheritdoc}
 	 */
-	public function __construct() {
+	public function init() {
 		$this->set_id( 'welcome_free' );
 		$this->set_title( 'Welcome to Posts Table with Search & Sort' );
 		$this->set_name( esc_html__( 'Welcome', 'posts-data-table' ) );
@@ -37,9 +37,9 @@ class Welcome extends Welcome_Free {
 				'raw'   => true,
 				'style' => [
 					'textAlign' => 'center',
-					'color'     => '#757575'
-				]
-			]
+					'color'     => '#757575',
+				],
+			],
 		];
 
 		return $fields;

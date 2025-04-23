@@ -7,8 +7,10 @@ use Barn2\Plugin\Posts_Table_Search_Sort\Simple_Posts_Table;
 use Barn2\Plugin\Posts_Table_Search_Sort\Dependencies\Lib\Admin\Plugin_Promo;
 use Barn2\Plugin\Posts_Table_Search_Sort\Dependencies\Lib\Admin\Settings_API_Helper;
 use Barn2\Plugin\Posts_Table_Search_Sort\Dependencies\Lib\Plugin\Plugin;
+use Barn2\Plugin\Posts_Table_Search_Sort\Dependencies\Lib\Admin\Settings_Util;
 use Barn2\Plugin\Posts_Table_Search_Sort\Dependencies\Lib\Registerable;
 use Barn2\Plugin\Posts_Table_Search_Sort\Dependencies\Lib\Util;
+use Barn2\Plugin\Posts_Table_Search_Sort\Dependencies\Lib\Service\Standard_Service;
 
 /**
  * This class handles our plugin settings page in the admin.
@@ -18,7 +20,7 @@ use Barn2\Plugin\Posts_Table_Search_Sort\Dependencies\Lib\Util;
  * @license   GPL-3.0
  * @copyright Barn2 Media Ltd
  */
-class Settings_Page implements Registerable {
+class Settings_Page implements Registerable, Standard_Service {
 
 	const MENU_SLUG    = 'posts_table_search_sort';
 	const OPTION_GROUP = 'posts_table_search_sort_main';
@@ -72,48 +74,6 @@ class Settings_Page implements Registerable {
 		);
 	}
 
-	/**
-	 * Return the description for the main title of a settings tab/section
-	 * including the links below the description
-	 * (as a filterable array of [ 'url', 'label', 'class' ])
-	 *
-	 * @param Plugin $plugin
-	 * @param string $description The text of the description
-	 *
-	 * @return string
-	 */
-	public function get_title_description( $plugin, $description ) {
-		$links = apply_filters(
-			'barn2_plugins_title_links',
-			[
-				'doc'     => [
-					'url'    => 'https://barn2.com/kb-categories/posts-table-search-sort-free-kb/',
-					'label'  => __( 'Documentation', 'posts-data-table' ),
-					'target' => '_blank',
-				],
-				'wizard' => [
-					'url'    => esc_url( admin_url( 'admin.php?page=posts-data-table-setup-wizard' ) ),
-					'label'  => __( 'Setup wizard', 'posts-data-table' ),
-					'target' => '_blank',
-				],
-			],
-			$plugin
-		);
-
-		$printed_links = implode(
-			' | ',
-			array_map(
-				function ( $link ) {
-					$target = isset( $link['target'] ) ? sprintf( ' target="%s"', esc_attr( $link['target'] ) ) : '';
-
-					return sprintf( '<a href="%s"%s>%s</a>', esc_url( $link['url'] ), $target, esc_html( $link['label'] ) );
-				},
-				$links
-			)
-		);
-
-		return sprintf( '<p>%s</p><p>%s</p>', $printed_links, esc_html( $description ) );
-	}
 
 	public function render_settings_page() {
 		?>
@@ -122,7 +82,9 @@ class Settings_Page implements Registerable {
 			<div class="barn2-settings-inner">
 				<h1><?php esc_html_e( 'Posts Table with Search and Sort', 'posts-data-table' ); ?></h1>
 
-				<?php echo wp_kses_post( $this->get_title_description( $this->plugin, '' ) ); ?>
+				<div class="links-area">
+					<?php $this->support_links(); ?>
+				</div>
 
 				<form action="options.php" method="post">
 					<?php
@@ -469,6 +431,17 @@ class Settings_Page implements Registerable {
 			?>
 		</p>
 		<?php
+	}
+
+	/**
+	 * Output the Barn2 Support Links.
+	 */
+	public function support_links() {
+		printf(
+			'<p>%s</p><p>%s</p>',
+			Settings_Util::get_help_links( $this->plugin ), // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+			''
+		);
 	}
 
 }

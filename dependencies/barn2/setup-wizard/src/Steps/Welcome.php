@@ -13,13 +13,14 @@ use Barn2\Plugin\Posts_Table_Search_Sort\Dependencies\Setup_Wizard\Util;
 /**
  * Handles the welcome step of the wizard.
  * Displays a license validation field and validates the license.
+ * @internal
  */
 class Welcome extends Step
 {
     /**
      * Initialize the step.
      */
-    public function __construct()
+    public function init()
     {
         $this->set_id('welcome');
         $this->set_name(esc_html__('Welcome', 'barn2-setup-wizard'));

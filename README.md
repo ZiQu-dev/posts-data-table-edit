@@ -1,12 +1,12 @@
 === Posts Table with Search & Sort ===
-Contributors: andykeith, barn2media
-Edited and translated for personal website by Mateusz Korniak
+Contributors: barn2media, Mateusz Korniak
 Donate link: https://barn2.com
+Edited and translated for personal website by Mateusz Korniak
 Tags: wordpress table plugin, data-table plugin, table plugin, table, wordpress table
-Requires at least: 6.0
-Tested up to: 6.4
+Requires at least: 6.1
+Tested up to: 6.8
 Requires PHP: 7.4
-Stable tag: 1.4.5
+Stable tag: 1.4.10
 License: GPL-3.0
 License URI: https://www.gnu.org/licenses/gpl.html
 
@@ -18,7 +18,7 @@ Automatically create searchable and sortable tables of your posts.
 
 Visitors can easily filter content by date, category, tag or author - making this WordPress table plugin highly adaptable to different use cases.
 
-https://youtu.be/xCV6WwZXd5M
+https://youtu.be/iNgC_HLKqis
 
 Install this plugin to organize your WordPress posts into simple, searchable, and visibly appealing tables. It includes pagination and responsive layouts for smaller screens as standard.
 
@@ -169,14 +169,9 @@ Please report any security bugs through the [Patchstack Vulnerability Disclosure
 
 == Changelog ==
 
-= 1.4.5 =
-Release date 2 February 2024
+= 1.4.10 =
+Release date 21 April 2025
 
-* Dev: Added the preview for WordPress repository
-
-= 1.4.4 =
-Release date 18 November 2023
-
-* Fix: Table doesn't show when other Barn2 plugins are activated
+* Dev: Updated internal libraries and tested up to WordPress 6.8
 
 See changelog.txt for more details.

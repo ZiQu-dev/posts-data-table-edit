@@ -1,22 +1,22 @@
 <?php return array(
     'root' => array(
+        'name' => 'barn2/posts-data-table',
         'pretty_version' => 'dev-master',
         'version' => 'dev-master',
+        'reference' => '2f631efe353b9cf10769507b80b25b472ef89d46',
         'type' => 'wordpress-plugin',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => 'fc50403cd1943856fc6f82fbb8c5768cc45bdaed',
-        'name' => 'barn2/posts-data-table',
         'dev' => false,
     ),
     'versions' => array(
         'barn2/posts-data-table' => array(
             'pretty_version' => 'dev-master',
             'version' => 'dev-master',
+            'reference' => '2f631efe353b9cf10769507b80b25b472ef89d46',
             'type' => 'wordpress-plugin',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => 'fc50403cd1943856fc6f82fbb8c5768cc45bdaed',
             'dev_requirement' => false,
         ),
     ),
