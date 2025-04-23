@@ -321,6 +321,8 @@ class Settings_Page implements Registerable, Standard_Service {
 							'both'   => __( 'Above and below table', 'posts-data-table' ),
 							'false'  => __( 'Hidden', 'posts-data-table' )
 						],
+						'desc'    => __( "The position of the 'Show [x] entries' dropdown list.", 'posts-data-table' ),
+						'default' => 'top'
 					],
 					[
 						'title'   => __( 'Search box', 'posts-data-table' ),
